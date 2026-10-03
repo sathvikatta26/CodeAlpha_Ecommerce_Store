@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Successful | ShopEase</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            color: #222;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .success-card {
+            background: white;
+            max-width: 650px;
+            width: 100%;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .success-icon {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background: #e4f8ec;
+            color: #198754;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            margin: 0 auto 20px;
+        }
+
+        h1 {
+            color: #198754;
+            margin-bottom: 12px;
+        }
+
+        .message {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .order-info {
+            background: #f7f8fa;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .order-info p {
+            margin: 10px 0;
+        }
+
+        .items {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .items h2 {
+            color: #243b67;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 19px;
+            color: #243b67;
+            margin-top: 18px;
+        }
+
+        .home-btn {
+            display: inline-block;
+            background: #243b67;
+            color: white;
+            text-decoration: none;
+            padding: 13px 25px;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .home-btn:hover {
+            background: #17294a;
+        }
+
+        @media (max-width: 500px) {
+            .success-card {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="success-card">
+
+        <div class="success-icon">✓</div>
+
+        <h1>Order Placed Successfully!</h1>
+
+        <p class="message">
+            Thank you for shopping with ShopEase.
+            Your order has been received successfully.
+        </p>
+
+        <div class="order-info">
+            <p><strong>Order ID:</strong> #{{ order.id }}</p>
+            <p><strong>Customer:</strong> {{ order.full_name }}</p>
+            <p><strong>Email:</strong> {{ order.email }}</p>
+            <p><strong>Phone:</strong> {{ order.phone }}</p>
+            <p><strong>Delivery Address:</strong> {{ order.address }}</p>
+            <p><strong>Status:</strong> {{ order.status }}</p>
+        </div>
+
+        <div class="items">
+            <h2>Ordered Products</h2>
+
+            {% for item in order.items.all %}
+                <div class="item">
+                    <div>
+                        <strong>{{ item.product.name }}</strong>
+                        <p>Quantity: {{ item.quantity }}</p>
+                    </div>
+
+                    <strong>₹{{ item.subtotal }}</strong>
+                </div>
+            {% endfor %}
+
+            <div class="total">
+                <span>Total Amount</span>
+                <span>₹{{ order.total_amount }}</span>
+            </div>
+        </div>
+
+        <a href="{% url 'home' %}" class="home-btn">
+            Continue Shopping
+        </a>
+
+    </div>
+</body>
+</html>
